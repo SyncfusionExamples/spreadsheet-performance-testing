@@ -1,0 +1,75 @@
+﻿@page "/"
+@using Syncfusion.Blazor.Spreadsheet
+@using Microsoft.JSInterop
+@using System.Diagnostics
+
+@rendermode InteractiveServer
+
+@inject IJSRuntime JS
+
+<!-- Spreadsheet Component -->
+<SfSpreadsheet DataSource="@DataSourceBytes" Created="OnCreated" ActionBeginning="OnActionBeginning" ActionCompleted="OnActionCompleted">
+    <SpreadsheetRibbon> </SpreadsheetRibbon>
+</SfSpreadsheet>
+
+@code
+{
+    /// <summary>
+    /// Gets or sets the workbook data loaded into the Spreadsheet.
+    /// </summary>
+    private byte[]? DataSourceBytes { get; set; }
+
+    /// <summary>
+    /// Measures the initial Spreadsheet loading time.
+    /// </summary>
+    private readonly Stopwatch loadWatch = new();
+
+    /// <summary>
+    /// Measures the duration of Spreadsheet actions.
+    /// </summary>
+    private readonly Stopwatch actionWatch = new();
+
+    /// <summary>
+    /// Initializes the component and loads the workbook data.
+    /// </summary>
+    protected override void OnInitialized()
+    {
+        loadWatch.Start();
+
+        string filePath = "./wwwroot/default.xlsx";
+        DataSourceBytes = File.ReadAllBytes(filePath);
+    }
+
+    /// <summary>
+    /// Triggered when the Spreadsheet component is created.
+    /// Displays the initial loading time.
+    /// </summary>
+    private async Task OnCreated()
+    {
+        loadWatch.Stop();
+
+        await JS.InvokeVoidAsync("alert", $"Spreadsheet loaded in {loadWatch.ElapsedMilliseconds} ms");
+    }
+
+    /// <summary>
+    /// Triggered before a Spreadsheet action begins.
+    /// Starts the action timer.
+    /// </summary>
+    /// <param name="args">Information about the action being performed.</param>
+    private void OnActionBeginning(ActionBeginningEventArgs args)
+    {
+        actionWatch.Restart();
+    }
+
+    /// <summary>
+    /// Triggered after a Spreadsheet action is completed.
+    /// Displays the action name and execution time.
+    /// </summary>
+    /// <param name="args">Information about the completed action.</param>
+    private async void OnActionCompleted(ActionCompletedEventArgs args)
+    {
+        actionWatch.Stop();
+
+        await JS.InvokeVoidAsync("alert", $"Action: {args.Action}\nDuration: {actionWatch.ElapsedMilliseconds} ms");
+    }
+}
