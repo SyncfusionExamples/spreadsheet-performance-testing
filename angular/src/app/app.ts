@@ -113,15 +113,11 @@ export class App {
   };
 
   beforeSave = (args: any) => {
-    console.log(args);
-
     args.isFullPost = false;
-
     this.exportStartTime = performance.now();
   };
 
   saveComplete = () => {
-    console.log('called');
     const exportTime = Math.round(
       performance.now() - this.exportStartTime
     );
