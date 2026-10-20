@@ -1,52 +1,18 @@
 {
-  "name": "spreadsheet-performance-testing-javascript",
-  "version": "1.0.0",
-  "description": "JavaScript ES6+ Spreadsheet Performance Testing with Syncfusion EJ2",
-  "main": "src/app/app.ts",
+  "name": "spreadsheet-app",
+  "private": true,
+  "version": "0.0.0",
+  "type": "module",
   "scripts": {
-    "start": "vite",
-    "build": "tsc && vite build",
-    "preview": "vite preview",
-    "dev": "vite --open"
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview"
   },
-  "keywords": [
-    "spreadsheet",
-    "performance",
-    "testing",
-    "syncfusion",
-    "ej2",
-    "javascript",
-    "typescript",
-    "es6",
-    "performance-analysis"
-  ],
-  "author": "Syncfusion Examples",
-  "license": "MIT",
   "dependencies": {
-    "@syncfusion/ej2-base": "^25.1.40",
-    "@syncfusion/ej2-buttons": "^25.1.40",
-    "@syncfusion/ej2-calendars": "^25.1.40",
-    "@syncfusion/ej2-charts": "^25.1.40",
-    "@syncfusion/ej2-compression": "^25.1.40",
-    "@syncfusion/ej2-data": "^25.1.40",
-    "@syncfusion/ej2-dropdowns": "^25.1.40",
-    "@syncfusion/ej2-excel-export": "^25.1.40",
-    "@syncfusion/ej2-inputs": "^25.1.40",
-    "@syncfusion/ej2-popups": "^25.1.40",
     "@syncfusion/ej2-spreadsheet": "^25.1.40",
     "@syncfusion/ej2-tailwind3-theme": "^25.1.40"
   },
   "devDependencies": {
-    "@types/node": "^20.10.6",
-    "typescript": "^5.3.3",
     "vite": "^5.0.8"
-  },
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/SyncfusionExamples/spreadsheet-performance-testing.git"
-  },
-  "bugs": {
-    "url": "https://github.com/SyncfusionExamples/spreadsheet-performance-testing/issues"
-  },
-  "homepage": "https://github.com/SyncfusionExamples/spreadsheet-performance-testing#readme"
+  }
 }
