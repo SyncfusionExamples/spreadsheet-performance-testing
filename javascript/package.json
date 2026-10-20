@@ -1,11 +1,13 @@
 {
   "name": "spreadsheet-performance-testing-javascript",
   "version": "1.0.0",
-  "description": "JavaScript ES5 Spreadsheet Performance Testing with Syncfusion EJ2",
-  "main": "src/main.js",
+  "description": "JavaScript ES6+ Spreadsheet Performance Testing with Syncfusion EJ2",
+  "main": "src/app/app.ts",
   "scripts": {
-    "start": "http-server -p 8000 -c-1 -o index.html",
-    "dev": "http-server -p 8000"
+    "start": "vite",
+    "build": "tsc && vite build",
+    "preview": "vite preview",
+    "dev": "vite --open"
   },
   "keywords": [
     "spreadsheet",
@@ -14,7 +16,8 @@
     "syncfusion",
     "ej2",
     "javascript",
-    "es5",
+    "typescript",
+    "es6",
     "performance-analysis"
   ],
   "author": "Syncfusion Examples",
@@ -34,7 +37,9 @@
     "@syncfusion/ej2-tailwind3-theme": "^25.1.40"
   },
   "devDependencies": {
-    "http-server": "^14.1.1"
+    "@types/node": "^20.10.6",
+    "typescript": "^5.3.3",
+    "vite": "^5.0.8"
   },
   "repository": {
     "type": "git",

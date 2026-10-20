@@ -3,10 +3,10 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Syncfusion EJ2 Spreadsheet Performance Testing - JavaScript ES5">
+    <meta name="description" content="Syncfusion EJ2 Spreadsheet Performance Testing - JavaScript ES6+">
     <meta name="author" content="Syncfusion Examples">
     
-    <title>Spreadsheet Performance Testing - JavaScript ES5</title>
+    <title>Spreadsheet Performance Testing - JavaScript</title>
     
     <!-- Syncfusion EJ2 Tailwind Theme -->
     <link rel="stylesheet" href="node_modules/@syncfusion/ej2-tailwind3-theme/styles/spreadsheet/index.css">
@@ -28,14 +28,17 @@
     <!-- Syncfusion EJ2 Spreadsheet Library -->
     <script src="node_modules/@syncfusion/ej2-spreadsheet/dist/ej2-spreadsheet.min.js"></script>
     
-    <!-- Custom Application Styles -->
+    <!-- Application Styles -->
+    <link rel="stylesheet" href="src/app/app.css">
     <link rel="stylesheet" href="src/styles.css">
 </head>
 <body>
-    <!-- Spreadsheet Component Container -->
-    <div id="spreadsheet"></div>
+    <!-- Application Root -->
+    <div id="app">
+        <!-- Application content loaded here -->
+    </div>
     
     <!-- Main Application Script -->
-    <script src="src/main.js"></script>
+    <script src="dist/app.js"></script>
 </body>
 </html>

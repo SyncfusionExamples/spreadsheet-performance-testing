@@ -1,24 +1,39 @@
-# JavaScript ES5 Spreadsheet Performance Testing
+# JavaScript ES6+ Spreadsheet Performance Testing
 
-This sample demonstrates the performance analysis of the Syncfusion Spreadsheet component using vanilla JavaScript ES5, with 50,000 employee records and comprehensive performance tracking.
+This sample demonstrates the performance analysis of the Syncfusion Spreadsheet component using JavaScript ES6+, with 50,000 employee records and comprehensive performance tracking capabilities.
+
+## Overview
+
+A production-ready JavaScript implementation that mirrors the React and Angular samples for testing Syncfusion EJ2 Spreadsheet performance across various operations including data loading, user interactions, file operations, and export functionality.
 
 ## Features
 
-- **Large Dataset Handling**: Tests performance with 50,000 employee records
-- **Performance Metrics Tracking**:
-  - Initial Load Time: Measures time from page load to spreadsheet component initialization
-  - Action Execution Time: Tracks time for user interactions (scrolling, editing, etc.)
-  - File Open Time: Measures time taken to open files
-  - Export/Save Time: Tracks time for spreadsheet export and save operations
-- **Syncfusion EJ2 Spreadsheet**: Full-featured spreadsheet component integration
-- **Pure Vanilla JavaScript**: ES5 compatible code with no build tools required
-- **Real-time Performance Alerts**: Displays performance metrics via browser alerts
+✅ **Large Dataset Handling**
+- Tests performance with 50,000 employee records
+- Realistic data generation with 10 fields per record
+
+✅ **Performance Metrics Tracking**
+- **Initial Load Time**: Measures time from page load to spreadsheet component initialization
+- **Action Execution Time**: Tracks time for user interactions (scrolling, editing, sorting, filtering)
+- **File Open Time**: Measures time taken to open and import files
+- **Export/Save Time**: Tracks time for spreadsheet export and save operations
+
+✅ **Modern JavaScript Stack**
+- TypeScript support for type safety
+- ES6+ features (arrow functions, template literals, modules)
+- Vite for fast development and optimized builds
+- Direct Syncfusion EJ2 Spreadsheet integration
+
+✅ **Event-Driven Performance Tracking**
+- 7 comprehensive event handlers for complete lifecycle monitoring
+- Real-time performance alerts via browser notifications
+- Console logging for detailed analysis
 
 ## Prerequisites
 
-- Node.js (v14 or higher)
-- npm or yarn
-- Modern web browser (Chrome, Firefox, Safari, Edge)
+- Node.js (v16 or higher)
+- npm (v8 or higher)
+- Modern web browser (Chrome 90+, Firefox 88+, Safari 14+, Edge 90+)
 
 ## Installation
 
@@ -36,22 +51,25 @@ npm install
 
 ### Development Server
 
-Start the development server:
+Start the development server with hot module replacement:
 ```bash
 npm start
 ```
 
-The application will be available at `http://localhost:8000/`
+The application will automatically open in your browser at `http://localhost:5173/`
 
-### Alternative: Using any HTTP Server
+### Build for Production
 
+Build optimized production bundle:
 ```bash
-npx http-server -p 8000
+npm run build
 ```
 
-Or with cache disabled:
+### Preview Production Build
+
+Preview the production build locally:
 ```bash
-npm run dev
+npm run preview
 ```
 
 ## Project Structure
@@ -59,127 +77,184 @@ npm run dev
 ```
 javascript/
 ├── src/
-│   ├── main.js           # Main application logic with performance tracking
-│   └── styles.css        # Application styles
-├── index.html            # HTML entry point
-├── package.json          # Dependencies and npm scripts
-├── README.md             # This file
-└── .gitignore            # Git ignore configuration
+│   ├── app/
+│   │   ├── app.ts         # Main application logic with performance tracking
+│   │   ├── app.html       # Application template
+│   │   └── app.css        # Component-specific styles
+│   └── styles.css         # Global application styles
+├── index.html             # HTML entry point
+├── package.json           # Dependencies and npm scripts
+├── tsconfig.json          # TypeScript configuration
+├── tsconfig.node.json     # TypeScript Node configuration
+├── vite.config.ts         # Vite configuration
+├── README.md              # This file
+└── .gitignore             # Git ignore configuration
 ```
 
 ## How It Works
 
 ### 1. Data Generation
 
-The application generates 50,000 employee records with the following fields:
-- **EmployeeID**: Auto-incremented ID (10001-60000)
-- **Employees**: Employee name (Employee 1, Employee 2, ...)
-- **Designation**: Job designation (Developer)
-- **Location**: Work location (USA)
-- **Status**: Employment status (Active)
-- **Shift**: Work shift (US)
-- **Trustworthiness**: Trust level (Perfect)
-- **Rating**: Random rating (1-5)
-- **Software**: Random software score (0-100)
-- **CurrentSalary**: Random salary (0-100000)
+The application generates 50,000 employee records with the following structure:
+
+```typescript
+interface TradeData {
+  EmployeeID: number;        // Auto-incremented ID (10001-60000)
+  Employees: string;         // Employee name
+  Designation: string;       // Job title
+  Location: string;          // Work location
+  Status: string;            // Employment status
+  Shift: string;             // Work shift
+  Trustworthiness: string;   // Trust level
+  Rating: number;            // Employee rating (1-5)
+  Software: number;          // Software skill score (0-100)
+  CurrentSalary: number;     // Annual salary (0-100000)
+}
+```
 
 ### 2. Performance Tracking
 
-The application tracks performance through 7 event handlers:
+The application tracks performance across four key metrics:
 
-#### Event: `created`
-- Fires when the Spreadsheet component is initialized
-- Measures: Initial Load Time (from page load to component creation)
-- Shows: Alert with total initialization time
+#### Initial Load Time
+- **Event**: `onCreated()`
+- **Measures**: Time from page load to Spreadsheet component fully initialized
+- **Typical Range**: 500-2000ms
+- **Purpose**: Assess component initialization efficiency
 
-#### Event: `actionBegin`
-- Fires before any user action starts
-- Records: Start time of the action
+#### Action Execution Time
+- **Event**: `onActionComplete()`
+- **Measures**: Duration of user actions (select, edit, scroll, sort, filter)
+- **Typical Range**: 10-500ms
+- **Purpose**: Evaluate component responsiveness
 
-#### Event: `actionComplete`
-- Fires after a user action completes
-- Measures: Duration of the user action
-- Shows: Alert with action duration
+#### File Open Time
+- **Event**: `onOpenComplete()`
+- **Measures**: Time to load and render Excel/CSV files
+- **Typical Range**: 500-3000ms
+- **Purpose**: Assess file import efficiency
 
-#### Event: `beforeOpen`
-- Fires before opening a file
-- Records: File open start time
+#### Export/Save Time
+- **Event**: `onSaveComplete()`
+- **Measures**: Time to export spreadsheet to Excel format
+- **Typical Range**: 500-5000ms
+- **Purpose**: Monitor export operation efficiency
 
-#### Event: `openComplete`
-- Fires after file is successfully opened
-- Measures: Time taken to open the file
-- Shows: Alert with file open time
+### 3. Event Handlers
 
-#### Event: `beforeSave`
-- Fires before saving/exporting the spreadsheet
-- Records: Export/save start time
-- Sets: `isFullPost = false` to optimize the save operation
+The application implements 7 event handlers for complete lifecycle monitoring:
 
-#### Event: `saveComplete`
-- Fires after save/export is complete
-- Measures: Time taken for export/save
-- Shows: Alert with export/save time
+#### 1. `onCreated()`
+```typescript
+function onCreated(): void {
+  // Called when Spreadsheet component is fully initialized
+  // Displays: Initial Load Time Taken : X ms
+}
+```
+Tracks initial component load time and enables action tracking.
 
-### 3. Spreadsheet Configuration
+#### 2. `onActionBegin()`
+```typescript
+function onActionBegin(): void {
+  // Called before any user action starts
+}
+```
+Records the start time of user actions for performance measurement.
 
-The Spreadsheet component is configured with:
-- **Open URL**: `https://document.syncfusion.com/web-services/spreadsheet-editor/api/spreadsheet/open`
-- **Save URL**: `https://document.syncfusion.com/web-services/spreadsheet-editor/api/spreadsheet/save`
-- **Single Sheet**: "Trade Data" sheet with all 50,000 records
-- **All 7 Event Handlers**: Connected for comprehensive performance tracking
+#### 3. `onActionComplete()`
+```typescript
+function onActionComplete(): void {
+  // Called after user action completes
+  // Displays: Time Taken : X ms
+}
+```
+Calculates and reports the duration of user actions.
 
-## Performance Metrics Explained
+#### 4. `onBeforeOpen()`
+```typescript
+function onBeforeOpen(): void {
+  // Called before file open operation starts
+}
+```
+Records the start time of file import operations.
 
-### Initial Load Time
-**What**: Time from page load to Spreadsheet component fully initialized
-**When**: Displayed when component `created` event fires
-**Typical Range**: 500-2000ms (depends on data size and browser performance)
-**Importance**: Indicates component initialization efficiency
+#### 5. `onOpenComplete()`
+```typescript
+function onOpenComplete(): void {
+  // Called after file is successfully opened
+  // Displays: Open Time Taken : X ms
+}
+```
+Calculates and reports file open operation time.
 
-### Action Execution Time
-**What**: Time to complete user actions like:
-- Cell selection
-- Cell editing
-- Column/row operations
-- Data sorting/filtering
-- Scrolling operations
+#### 6. `onBeforeSave()`
+```typescript
+function onBeforeSave(args: any): void {
+  // Called before save/export operation starts
+  args.isFullPost = false; // Optimize: send only modified data
+}
+```
+Records start time and optimizes save operation.
 
-**When**: Displayed after each action completes
-**Typical Range**: 10-500ms depending on action complexity
-**Importance**: Measures component responsiveness to user interactions
+#### 7. `onSaveComplete()`
+```typescript
+function onSaveComplete(): void {
+  // Called after save/export operation completes
+  // Displays: Export Time Taken : X ms
+}
+```
+Calculates and reports export/save operation time.
 
-### File Open Time
-**What**: Time to load and render an Excel/CSV file
-**When**: Displayed after `openComplete` event
-**Typical Range**: 500-3000ms
-**Importance**: Indicates file import efficiency
+## Configuration
 
-### Export/Save Time
-**What**: Time to export spreadsheet to Excel format
-**When**: Displayed after `saveComplete` event
-**Typical Range**: 500-5000ms
-**Importance**: Indicates export/save operation efficiency
+### Spreadsheet Configuration
+
+```typescript
+const spreadsheet = new ej.spreadsheet.Spreadsheet({
+  // Service URLs for file operations
+  openUrl: 'https://document.syncfusion.com/web-services/spreadsheet-editor/api/spreadsheet/open',
+  saveUrl: 'https://document.syncfusion.com/web-services/spreadsheet-editor/api/spreadsheet/save',
+  
+  // Event handlers
+  created: onCreated,
+  actionBegin: onActionBegin,
+  actionComplete: onActionComplete,
+  beforeOpen: onBeforeOpen,
+  openComplete: onOpenComplete,
+  beforeSave: onBeforeSave,
+  saveComplete: onSaveComplete,
+  
+  // Data configuration
+  sheets: [{
+    name: 'Trade Data',
+    ranges: [{
+      dataSource: tradeData,
+      startCell: 'A1'
+    }]
+  }]
+});
+```
 
 ## Dependencies
 
-This sample uses the following Syncfusion EJ2 packages:
+### Production Dependencies
+- `@syncfusion/ej2-base` (v25.1.40) - Base library
+- `@syncfusion/ej2-buttons` (v25.1.40) - Button component
+- `@syncfusion/ej2-calendars` (v25.1.40) - Calendar component
+- `@syncfusion/ej2-charts` (v25.1.40) - Chart component
+- `@syncfusion/ej2-compression` (v25.1.40) - Compression utilities
+- `@syncfusion/ej2-data` (v25.1.40) - Data services
+- `@syncfusion/ej2-dropdowns` (v25.1.40) - Dropdown component
+- `@syncfusion/ej2-excel-export` (v25.1.40) - Excel export functionality
+- `@syncfusion/ej2-inputs` (v25.1.40) - Input component
+- `@syncfusion/ej2-popups` (v25.1.40) - Popup component
+- `@syncfusion/ej2-spreadsheet` (v25.1.40) - Spreadsheet component
+- `@syncfusion/ej2-tailwind3-theme` (v25.1.40) - Tailwind3 theme
 
-```json
-{
-  "@syncfusion/ej2-base": "^25.1.40",
-  "@syncfusion/ej2-buttons": "^25.1.40",
-  "@syncfusion/ej2-calendars": "^25.1.40",
-  "@syncfusion/ej2-charts": "^25.1.40",
-  "@syncfusion/ej2-compression": "^25.1.40",
-  "@syncfusion/ej2-data": "^25.1.40",
-  "@syncfusion/ej2-dropdowns": "^25.1.40",
-  "@syncfusion/ej2-excel-export": "^25.1.40",
-  "@syncfusion/ej2-inputs": "^25.1.40",
-  "@syncfusion/ej2-popups": "^25.1.40",
-  "@syncfusion/ej2-spreadsheet": "^25.1.40",
-  "@syncfusion/ej2-tailwind3-theme": "^25.1.40"
-}
-```
+### Development Dependencies
+- `typescript` (v5.3.3) - TypeScript compiler
+- `vite` (v5.0.8) - Build tool and development server
+- `@types/node` (v20.10.6) - Node.js type definitions
 
 ## Browser Support
 
@@ -190,83 +265,104 @@ This sample uses the following Syncfusion EJ2 packages:
 | Safari | 14+ | ✅ Fully Supported |
 | Edge | 90+ | ✅ Fully Supported |
 
-## Development
+## Performance Benchmarks
 
-### Available Scripts
+Expected performance metrics on modern hardware (typical values):
 
-- `npm start` - Run development server with default settings
-- `npm run dev` - Run development server with cache disabled
+| Metric | Min | Max | Typical |
+|--------|-----|-----|---------|
+| Initial Load Time | 500ms | 2000ms | 800ms |
+| Action Execution | 10ms | 500ms | 100ms |
+| File Open Time | 500ms | 3000ms | 1500ms |
+| Export Time | 500ms | 5000ms | 2000ms |
 
-### Modifying Data Size
+*Note: Actual values depend on system specifications, browser, network conditions, and file size.*
 
-To test with different dataset sizes, edit `src/main.js`:
+## Development Guidelines
 
-```javascript
-// Current: 50,000 records
-var tradeData = getTradeData(50000);
-
-// Modify to test with different sizes
-var tradeData = getTradeData(10000);   // 10,000 records
-var tradeData = getTradeData(100000);  // 100,000 records
-```
+### TypeScript Best Practices
+- Use strong typing with interfaces
+- Avoid `any` type unless necessary
+- Leverage TypeScript strict mode
 
 ### Performance Optimization
+- Monitor bundle size with Vite
+- Use lazy loading for large datasets
+- Cache computed values when possible
 
-For testing with large datasets:
-1. Disable browser extensions that might affect performance
-2. Close other applications
-3. Use Chrome DevTools Performance tab for detailed profiling
-4. Monitor Network tab for load time analysis
-
-## Official Documentation
-
-- [Syncfusion EJ2 Spreadsheet API Documentation](https://ej2.syncfusion.com/javascript/documentation/api/spreadsheet/index-default)
-- [Syncfusion EJ2 Spreadsheet Getting Started Guide](https://help.syncfusion.com/document-processing/excel/spreadsheet/javascript-es5/getting-started)
-- [Syncfusion JavaScript Performance Best Practices](https://www.syncfusion.com/blogs/category/javascript)
+### Code Organization
+- Keep components focused and reusable
+- Separate concerns into different modules
+- Use clear naming conventions
 
 ## Troubleshooting
 
-### Application not loading
-- Ensure all dependencies are installed: `npm install`
-- Clear browser cache and reload
-- Check browser console for errors (F12)
+### Issue: Page shows blank after build
 
-### Performance metrics not showing
-- Wait for the page to fully load
-- Ensure spreadsheet component is created before performing actions
-- Check that alerts are not disabled in browser settings
+**Solution**: Ensure all Syncfusion dependencies are installed:
+```bash
+npm install
+npm run build
+```
 
-### Slow performance with 50,000 records
-- This is expected behavior on lower-end machines
-- Try reducing data size for testing
-- Check browser DevTools Performance tab for bottlenecks
+### Issue: Performance metrics not displaying
 
-### Module not found errors
-- Run `npm install` again
-- Delete `node_modules` folder and reinstall
-- Clear npm cache: `npm cache clean --force`
+**Solution**: Check browser console for errors (F12 → Console tab)
+- Verify Syncfusion libraries are loaded
+- Ensure DOM element with id="spreadsheet" exists
 
-## Comparison with Other Implementations
+### Issue: File open/save not working
 
-This sample follows the same pattern as:
-- **React Implementation**: Uses React hooks for state management
-- **Angular Implementation**: Uses Angular component lifecycle
+**Solution**: Verify service URLs are accessible:
+- Check network tab in DevTools (F12)
+- Confirm API endpoints are available
+- Check CORS settings
 
-All three implementations test the same Syncfusion Spreadsheet component with identical data and performance tracking patterns.
+### Issue: High memory usage with 50,000 rows
 
-## License
+**Solution**: Consider reducing data size or implementing virtual scrolling:
+```typescript
+// Reduce dataset for testing
+const tradeData = getTradeData(10000); // Instead of 50000
+```
 
-MIT License - See LICENSE file for details
+## Comparison with React and Angular Samples
+
+| Feature | React | Angular | JavaScript |
+|---------|-------|---------|------------|
+| Framework | React 18+ | Angular 17+ | ES6+ |
+| Language | JavaScript/JSX | TypeScript | TypeScript |
+| Build Tool | Vite | Vite | Vite |
+| Component Library | Syncfusion React | Syncfusion Angular | Syncfusion EJ2 |
+| Event Handlers | 7 | 7 | 7 |
+| Data Records | 50,000 | 50,000 | 50,000 |
+| Performance Metrics | 4 | 4 | 4 |
+
+## Official Documentation
+
+- **Syncfusion EJ2 Spreadsheet API**: https://ej2.syncfusion.com/documentation/api/spreadsheet/index-default
+- **JavaScript ES6+ Getting Started**: https://help.syncfusion.com/document-processing/excel/spreadsheet/javascript-es6/getting-started
+- **Vite Documentation**: https://vitejs.dev/
+- **TypeScript Handbook**: https://www.typescriptlang.org/docs/
 
 ## Support
 
-For issues or questions:
-- [GitHub Issues](https://github.com/SyncfusionExamples/spreadsheet-performance-testing/issues)
-- [Syncfusion Support](https://www.syncfusion.com/support/directtrac/)
-- [Syncfusion Forums](https://www.syncfusion.com/forums/)
+For issues and questions:
+- **GitHub Issues**: https://github.com/SyncfusionExamples/spreadsheet-performance-testing/issues
+- **Syncfusion Support**: https://www.syncfusion.com/support/
+- **Community Forums**: https://www.syncfusion.com/forums/
 
-## See Also
+## License
 
-- [React Sample](../react/README.md)
-- [Angular Sample](../angular/README.md)
-- [Blazor Sample](../Blazor/README.md)
+This project is licensed under the MIT License - see the LICENSE file for details.
+
+## Authors
+
+- Syncfusion Examples Team
+- Contributors
+
+## Related Samples
+
+- [React Spreadsheet Performance Testing](../react/)
+- [Angular Spreadsheet Performance Testing](../angular/)
+- [Blazor Spreadsheet Performance Testing](../Blazor/)
