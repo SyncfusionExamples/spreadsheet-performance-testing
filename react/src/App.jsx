@@ -78,15 +78,12 @@ export default function App() {
   };
 
   const beforeSave = (args) => {
-    console.log(args);
-
     args.isFullPost = false;
 
     exportStartTime.current = performance.now();
   };
 
   const saveComplete = () => {
-    console.log("callled");
     const exportTime = Math.round(
       performance.now() - exportStartTime.current
     );
