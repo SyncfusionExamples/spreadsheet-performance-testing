@@ -127,3 +127,4 @@ export class App {
     }, 500);
   };
 }
+

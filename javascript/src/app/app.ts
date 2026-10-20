@@ -74,7 +74,7 @@ const spreadsheet: Spreadsheet = new Spreadsheet({
     },
 
     beforeSave: (args: Object) => {
-         args.isFullPost = false;
+        args.isFullPost = false;
         exportStartTime = performance.now();
     },
 
