@@ -1,67 +1,75 @@
-# JavaScript Spreadsheet Performance Testing
+# Essential JS 2 QuickStart
 
-This sample demonstrates the performance analysis of the Syncfusion Spreadsheet component using JavaScript, with 50,000 employee records.
+This project is a skeleton application used to create [Essential JS 2](https://www.syncfusion.com/products/essential-js2) web application.
 
-## Project Setup
+>This application uses the latest version of the [webpack-cli](https://webpack.js.org/api/cli/#commands). It requires node `v14.15.0` or higher.
 
-```sh
+## Getting Started
+
+To get started you need to clone the `ej2-quickstart` repository and navigate to `ej2-quickstart` location.
+
+```
+git clone https://github.com/syncfusion/ej2-quickstart.git quickstart
+cd quickstart
+```
+
+## Installing
+
+We can get all the Essential JS 2 components in a single npm package [`ej2`](https://www.npmjs.com/package/@syncfusion/ej2).
+
+We already configure the required packages in the `package.json` file.
+
+You can run the below command to install all dependent packages related to this seed project.
+
+```
 npm install
 ```
 
-### Compile and Hot-Reload for Development
+## Testing
 
-```sh
-npm run dev
+This application is preconfigured with End-to-End testing and the test case is written in Jasmine.
+
+We run the test scripts with [Protractor](http://www.protractortest.org/#/) end-to-end test runner. The test case file can be found in the `e2e` folder.
+
+Protractor can interact with our web application and verify the test scripts.
+
+We have to install WebDriver and also need to ensure it is updated. Open a separate terminal and run the below npm script.
+
+```
+npm run update-webdriver
 ```
 
-### Compile and Minify for Production
+Open another terminal and run the below npm script. It will start web server to serve our application.
 
-```sh
-npm run build
+```
+npm run serve
 ```
 
-### Preview Production Build
+Once the web server is up and running, we can run the end-to-end tests using the below npm script
 
-```sh
-npm run preview
+```
+npm run test
 ```
 
-## Dependencies
+> **Note:** Since Protractor is using the Selenium Standalone Server, the Java Development Kit (JDK) need to be installed in your local machine.
 
-- `@syncfusion/ej2-spreadsheet`: ^25.1.40
-- `@syncfusion/ej2-tailwind3-theme`: ^25.1.40
+If JDK is not installed in your local machine, you can download it from [here](http://www.oracle.com/technetwork/java/javase/downloads/index.html).
 
-## How It Works
+## Running
 
-This application demonstrates performance tracking of the Syncfusion Spreadsheet component with the following metrics:
+The application is configured with [webpack-dev-server](https://webpack.js.org/configuration/dev-server/#devserver), so it will serve the web application in your default browser.
 
-1. **Initial Load Time**: Time taken for the spreadsheet component to initialize
-2. **Action Execution Time**: Time taken for user interactions (scroll, edit, sort, filter)
-3. **File Open Time**: Time taken to open and import files
-4. **Export/Save Time**: Time taken to export and save spreadsheets
+We have used [Webpack](https://github.com/webpack/webpack) for module loading.
 
-The performance metrics are displayed as alerts when each action completes.
+You can use the below npm script to run the web application.
 
-### Data Source
+```
+npm run start
+```
 
-The application uses 50,000 employee records with the following fields:
-- EmployeeID
-- Employees
-- Designation
-- Location
-- Status
-- Shift
-- Trustworthiness
-- Rating
-- Software
-- CurrentSalary
+## Resources
 
-### Event Handlers
+You can also refer the below resources to know more details about Essential JS 2 components.
 
-- `created`: Tracks component initialization
-- `actionBegin`: Marks the start of user actions
-- `actionComplete`: Measures user action duration
-- `beforeOpen`: Marks the start of file open
-- `openComplete`: Measures file open duration
-- `beforeSave`: Marks the start of export/save
-- `saveComplete`: Measures export/save duration
+* [Pure JS Demos](http://ej2.syncfusion.com/demos/)
+* [Pure JS Documentation](http://ej2.syncfusion.com/documentation/)
