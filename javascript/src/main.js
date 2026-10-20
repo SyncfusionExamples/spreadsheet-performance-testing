@@ -1,4 +1,13 @@
-// Data Generation Function
+/**
+ * Syncfusion EJ2 Spreadsheet Performance Testing - JavaScript ES5
+ * This sample demonstrates performance analysis with 50,000 employee records
+ */
+
+/**
+ * Generate sample trade data with specified count
+ * @param {number} dataCount - Number of records to generate (default: 50000)
+ * @returns {Array} Array of employee data objects
+ */
 function getTradeData(dataCount) {
     dataCount = dataCount || 50000;
     var tradeData = [];
@@ -21,17 +30,21 @@ function getTradeData(dataCount) {
     return tradeData;
 }
 
-// Generate trade data
+// Generate 50,000 employee records for performance testing
 var tradeData = getTradeData(50000);
 
-// Performance Tracking Variables
+// ========== Performance Tracking Variables ==========
 var initialLoadStartTime = performance.now();
 var startTime = 0;
 var exportStartTime = 0;
 var openStartTime = 0;
 var isCreated = false;
 
-// Event Handler: Created
+/**
+ * Event Handler: Spreadsheet Created
+ * Fires when the Spreadsheet component is fully initialized
+ * Measures: Initial Load Time (from page load to component creation)
+ */
 function onCreated() {
     setTimeout(function() {
         var timeTaken = Math.round(performance.now() - initialLoadStartTime);
@@ -41,14 +54,22 @@ function onCreated() {
     isCreated = true;
 }
 
-// Event Handler: Action Begin
+/**
+ * Event Handler: Action Begin
+ * Fires before any user action starts (scrolling, editing, sorting, etc.)
+ * Records: Start time of the action for performance measurement
+ */
 function onActionBegin(args) {
     if (isCreated) {
         startTime = performance.now();
     }
 }
 
-// Event Handler: Action Complete
+/**
+ * Event Handler: Action Complete
+ * Fires after a user action completes
+ * Measures: Duration of the action and displays result in alert
+ */
 function onActionComplete(args) {
     if (!isCreated || startTime === 0) {
         return;
@@ -61,12 +82,20 @@ function onActionComplete(args) {
     }, 500);
 }
 
-// Event Handler: Before Open
+/**
+ * Event Handler: Before Open
+ * Fires before opening/importing a file
+ * Records: File open start time for performance measurement
+ */
 function onBeforeOpen(args) {
     openStartTime = performance.now();
 }
 
-// Event Handler: Open Complete
+/**
+ * Event Handler: Open Complete
+ * Fires after file is successfully opened/imported
+ * Measures: Total time taken to open and render the file
+ */
 function onOpenComplete(args) {
     var openTime = Math.round(performance.now() - openStartTime);
 
@@ -75,18 +104,28 @@ function onOpenComplete(args) {
     }, 500);
 }
 
-// Event Handler: Before Save
+/**
+ * Event Handler: Before Save
+ * Fires before saving/exporting the spreadsheet
+ * Records: Export/save start time
+ * Optimization: Sets isFullPost to false for efficient save operations
+ */
 function onBeforeSave(args) {
     console.log(args);
 
+    // Optimize save operation by setting isFullPost to false
     args.isFullPost = false;
 
     exportStartTime = performance.now();
 }
 
-// Event Handler: Save Complete
+/**
+ * Event Handler: Save Complete
+ * Fires after save/export operation completes
+ * Measures: Total time taken for export/save operation
+ */
 function onSaveComplete(args) {
-    console.log('called');
+    console.log('Export operation complete');
     var exportTime = Math.round(performance.now() - exportStartTime);
 
     setTimeout(function() {
@@ -94,10 +133,21 @@ function onSaveComplete(args) {
     }, 500);
 }
 
-// Initialize Spreadsheet
+// ========== Spreadsheet Component Initialization ==========
+/**
+ * Initialize Syncfusion EJ2 Spreadsheet component
+ * Configuration includes:
+ * - Open URL: Service endpoint for opening files
+ * - Save URL: Service endpoint for saving/exporting
+ * - 7 Event handlers for performance tracking
+ * - Single sheet with 50,000 employee records
+ */
 var spreadsheetInstance = new ej.spreadsheet.Spreadsheet({
+    // Service URLs for file operations
     openUrl: 'https://document.syncfusion.com/web-services/spreadsheet-editor/api/spreadsheet/open',
     saveUrl: 'https://document.syncfusion.com/web-services/spreadsheet-editor/api/spreadsheet/save',
+    
+    // Event handlers for performance tracking
     created: onCreated,
     actionBegin: onActionBegin,
     actionComplete: onActionComplete,
@@ -105,6 +155,8 @@ var spreadsheetInstance = new ej.spreadsheet.Spreadsheet({
     openComplete: onOpenComplete,
     beforeSave: onBeforeSave,
     saveComplete: onSaveComplete,
+    
+    // Sheet configuration with 50,000 records
     sheets: [
         {
             name: 'Trade Data',
@@ -118,5 +170,5 @@ var spreadsheetInstance = new ej.spreadsheet.Spreadsheet({
     ]
 });
 
-// Render the spreadsheet
+// Render the Spreadsheet component into the DOM
 spreadsheetInstance.appendTo('#spreadsheet');

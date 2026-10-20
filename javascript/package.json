@@ -1,12 +1,24 @@
 {
-  "name": "javascript-spreadsheet-performance",
+  "name": "spreadsheet-performance-testing-javascript",
   "version": "1.0.0",
-  "description": "JavaScript ES5 Spreadsheet performance testing with Syncfusion",
+  "description": "JavaScript ES5 Spreadsheet Performance Testing with Syncfusion EJ2",
   "main": "src/main.js",
   "scripts": {
-    "start": "http-server -p 8000 -c-1",
+    "start": "http-server -p 8000 -c-1 -o index.html",
     "dev": "http-server -p 8000"
   },
+  "keywords": [
+    "spreadsheet",
+    "performance",
+    "testing",
+    "syncfusion",
+    "ej2",
+    "javascript",
+    "es5",
+    "performance-analysis"
+  ],
+  "author": "Syncfusion Examples",
+  "license": "MIT",
   "dependencies": {
     "@syncfusion/ej2-base": "^25.1.40",
     "@syncfusion/ej2-buttons": "^25.1.40",
@@ -24,13 +36,12 @@
   "devDependencies": {
     "http-server": "^14.1.1"
   },
-  "keywords": [
-    "spreadsheet",
-    "syncfusion",
-    "performance",
-    "javascript",
-    "es5"
-  ],
-  "author": "Syncfusion",
-  "license": "MIT"
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/SyncfusionExamples/spreadsheet-performance-testing.git"
+  },
+  "bugs": {
+    "url": "https://github.com/SyncfusionExamples/spreadsheet-performance-testing/issues"
+  },
+  "homepage": "https://github.com/SyncfusionExamples/spreadsheet-performance-testing#readme"
 }
