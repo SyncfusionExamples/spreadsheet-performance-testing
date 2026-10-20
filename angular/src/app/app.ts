@@ -30,8 +30,8 @@ const tradeData = getTradeData(50000);
   selector: 'app-root',
   template: `<ejs-spreadsheet
     #spreadsheet
-    [openUrl]="https://document.syncfusion.com/web-services/spreadsheet-editor/api/spreadsheet/open"
-    [saveUrl]="https://document.syncfusion.com/web-services/spreadsheet-editor/api/spreadsheet/save"
+    [openUrl]="'https://document.syncfusion.com/web-services/spreadsheet-editor/api/spreadsheet/open'"
+    [saveUrl]="'https://document.syncfusion.com/web-services/spreadsheet-editor/api/spreadsheet/save'"
     (created)="created()"
     (actionBegin)="actionBegin()"
     (actionComplete)="actionComplete()"
